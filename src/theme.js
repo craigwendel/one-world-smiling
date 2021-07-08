@@ -17,7 +17,7 @@ let theme = createTheme({
     },
   },
   typography: {
-    fontFamily: ['Montserrat', 'sans-serif'].join(','),
+    fontFamily: ['Schoolbell', 'cursive'].join(','),
   },
 });
 theme = responsiveFontSizes(theme);
