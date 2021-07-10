@@ -21,7 +21,10 @@ export default async function (req, res) {
     <p>${
       order
         ? `T-Shirts requested: <ul>${tshirts?.map(
-            (t) => `<li>Size: ${t?.size} - Quantity: ${t?.quantity}</li>`
+            (t) =>
+              `<li>Size: ${t?.size?.toUpperCase()} - Quantity: ${
+                t?.quantity
+              }</li>`
           )}</ul>`
         : `Message: ${message}`
     }</p>
