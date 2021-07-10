@@ -4,10 +4,10 @@ import { red, yellow, green } from '@material-ui/core/colors';
 let theme = createTheme({
   palette: {
     primary: {
-      main: yellow.A400,
+      main: '#000080',
     },
     secondary: {
-      main: green.A400,
+      main: '#f3a6c1',
     },
     error: {
       main: red.A400,
@@ -17,7 +17,7 @@ let theme = createTheme({
     },
   },
   typography: {
-    fontFamily: ['Schoolbell', 'cursive'].join(','),
+    fontFamily: ['Ubuntu Condensed', 'san-serif'].join(','),
   },
 });
 theme = responsiveFontSizes(theme);

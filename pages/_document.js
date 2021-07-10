@@ -10,7 +10,7 @@ export default class MyDocument extends Document {
         <Head>
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link
-            href="https://fonts.googleapis.com/css2?family=Schoolbell&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap"
             rel="stylesheet"
           />
         </Head>

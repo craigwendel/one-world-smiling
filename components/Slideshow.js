@@ -1,49 +1,76 @@
 import React from 'react';
+import Image from 'next/image';
 import Carousel from 'react-material-ui-carousel';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Paper, Button, Typography } from '@material-ui/core';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   slide: {
-    height: '30vh',
+    height: '100%',
     display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'space-evenly',
+    paddingBottom: '2rem',
+    [theme.breakpoints.down('xs')]: {
+      flexDirection: 'column',
+    },
+  },
+  image: {
+    padding: '2rem',
+  },
+  content: {
+    display: 'grid',
+    gridTemplateColumns: '1fr',
+    justifyItems: 'center',
+    gridGap: '2rem',
   },
   button: {
-    width: 250,
+    width: 180,
   },
-});
+}));
 
 const slides = [
   {
     id: 1,
-    name: 'Slide #1',
-    description: 'Some really good content about the first slide!!!',
+    name: 'Our Shirts',
+    button: 'Order Now!',
+    color: '#FAB5B5',
+    img: '/t-shirt-front-back.png',
+    width: 250,
   },
   {
     id: 2,
-    name: 'Slide #2',
-    description: 'More great content...I just need to add it all in!',
+    name: '#Sm1le',
+    button: 'Learn More',
+    color: '#6D8EE8',
+    img: '/smile-world-color.png',
+    width: 300,
   },
 ];
 
-function Slide({ name, description }) {
+function Slide({ name, button, color, img, width }) {
   const classes = useStyles();
   return (
-    <Paper className={classes.slide}>
-      <Typography align="center" variant="h2">
-        {name}
-      </Typography>
-      <Typography color="secondary" align="center">
-        {description}
-      </Typography>
-      <Button className={classes.button} color="primary" variant="contained">
-        Check it out!
-      </Button>
+    <Paper className={classes.slide} style={{ background: color }}>
+      <div className={classes.image}>
+        <Image
+          src={img}
+          width={width}
+          height={300}
+          layout="intrinsic"
+          alt={name}
+        />
+      </div>
+      <div className={classes.content}>
+        <Typography align="center" variant="h2">
+          {name}
+        </Typography>
+        <Button variant="contained" color="primary" className={classes.button}>
+          {button}
+        </Button>
+      </div>
     </Paper>
   );
 }
@@ -52,14 +79,15 @@ export default function Slideshow() {
   return (
     <Carousel
       indicators={false}
+      navButtonsAlwaysVisible
       animation="slide"
-      interval={8000}
-      PrevIcon={<ChevronLeft />}
-      NextIcon={<ChevronRight />}
+      interval={10000}
+      PrevIcon={<ChevronLeft fontSize="large" />}
+      NextIcon={<ChevronRight fontSize="large" />}
       navButtonsProps={{
         style: {
           backgroundColor: 'transparent',
-          color: '#000',
+          color: '#fff',
         },
       }}
     >
@@ -67,7 +95,10 @@ export default function Slideshow() {
         <Slide
           key={slide.id}
           name={slide.name}
-          description={slide.description}
+          button={slide.button}
+          color={slide.color}
+          img={slide.img}
+          width={slide.width}
         />
       ))}
     </Carousel>
