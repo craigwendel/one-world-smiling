@@ -35,6 +35,8 @@ export default async function (req, res) {
     console.log('ERROR', error);
     res
       .status(400)
-      .send('There was a problem with your request, please try again later');
+      .send(
+        `There was a problem with your request, please try again later. Error: ${error}`
+      );
   }
 }
