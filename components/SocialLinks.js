@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Link from '@material-ui/core/Link';
 import IconButton from '@material-ui/core/IconButton';
@@ -16,6 +17,7 @@ const useStyles = makeStyles({
 
 export default function SocialLinks({ youTube, email, color }) {
   const classes = useStyles();
+  const router = useRouter();
   return (
     <div className={classes.root}>
       <IconButton>
@@ -47,7 +49,7 @@ export default function SocialLinks({ youTube, email, color }) {
         </IconButton>
       )}
       {email && (
-        <IconButton>
+        <IconButton onClick={() => router.push('/contact')}>
           <Link style={{ color: color }}>
             <EmailIcon />
           </Link>

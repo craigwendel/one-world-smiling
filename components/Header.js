@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -48,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
       width: 'auto',
       margin: 0,
     },
+    '&:hover': {
+      cursor: 'pointer',
+    },
   },
   logo: {
     width: 125,
@@ -92,12 +96,13 @@ function ScrollTop(props) {
 
 export default function AppHeader(props) {
   const classes = useStyles();
+  const router = useRouter();
 
   return (
     <>
       <Toolbar variant="dense" classes={{ root: classes.header }}>
         <MobileMenu />
-        <div className={classes.logoBar}>
+        <div className={classes.logoBar} onClick={() => router.push('/')}>
           <Typography color="primary" variant="h3">
             1 World Smiling
           </Typography>

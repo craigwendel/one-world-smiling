@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Carousel from 'react-material-ui-carousel';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -39,19 +40,22 @@ const slides = [
     color: '#FAB5B5',
     img: '/t-shirt-front-back.png',
     width: 250,
+    href: '/order',
   },
   {
     id: 2,
     name: '#Sm1le',
     button: 'Learn More',
-    color: '#6D8EE8',
+    color: '#ffe500b3',
     img: '/smile-world-color.png',
     width: 300,
+    href: '/my-message',
   },
 ];
 
-function Slide({ name, button, color, img, width }) {
+function Slide({ name, button, color, img, width, href }) {
   const classes = useStyles();
+  const router = useRouter();
   return (
     <Paper className={classes.slide} style={{ background: color }}>
       <div className={classes.image}>
@@ -67,7 +71,12 @@ function Slide({ name, button, color, img, width }) {
         <Typography align="center" variant="h2">
           {name}
         </Typography>
-        <Button variant="contained" color="primary" className={classes.button}>
+        <Button
+          onClick={() => router.push(href)}
+          variant="contained"
+          color="primary"
+          className={classes.button}
+        >
           {button}
         </Button>
       </div>
@@ -99,6 +108,7 @@ export default function Slideshow() {
           color={slide.color}
           img={slide.img}
           width={slide.width}
+          href={slide.href}
         />
       ))}
     </Carousel>

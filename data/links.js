@@ -1,11 +1,11 @@
 export const links = [
   {
-    name: `Jaylen's Message`,
-    path: '/message',
+    name: 'Order Now!',
+    path: '/order',
   },
   {
-    name: 'Our Products',
-    path: '/products',
+    name: `Jaylen's Message`,
+    path: '/my-message',
   },
   {
     name: 'Contact Us',
