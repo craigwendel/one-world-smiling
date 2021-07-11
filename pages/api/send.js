@@ -15,10 +15,12 @@ export default async function (req, res) {
     } From - ${firstName} ${lastName}`,
     text: 'See Details below...',
     html: `
-    <p> ${order ? 'Order' : 'Message'} from <b>${firstName} ${lastName}</b></p>
-    <p>Email: ${email}</p>
-    <p>Phone: ${phone}</p>
-    <p>${
+    <h1> ${
+      order ? 'Order' : 'Message'
+    } from <b>${firstName} ${lastName}</b></h1>
+    <h3>Email: ${email}</h3>
+    <h3>Phone: ${phone}</h3>
+    <h6>${
       order
         ? `T-Shirts requested: <ul>${tshirts?.map(
             (t) =>
@@ -27,7 +29,7 @@ export default async function (req, res) {
               }</li>`
           )}</ul>`
         : `Message: ${message}`
-    }</p>
+    }</h6>
     `,
   };
 

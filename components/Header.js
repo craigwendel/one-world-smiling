@@ -6,10 +6,13 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Fab from '@material-ui/core/Fab';
 import Typography from '@material-ui/core/Typography';
 import Zoom from '@material-ui/core/Zoom';
+import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import SocialLinks from './SocialLinks';
 import MobileMenu from './MobileMenu';
+import { useCart } from '../lib/cartState';
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -44,10 +47,8 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    marginRight: 26,
     [theme.breakpoints.up('sm')]: {
       width: 'auto',
-      margin: 0,
     },
     '&:hover': {
       cursor: 'pointer',
@@ -59,12 +60,6 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       cursor: 'pointer',
     },
-  },
-  link: {
-    color: 'inherit',
-    padding: '0.5rem',
-    fontWeight: 700,
-    textDecoration: 'none',
   },
 }));
 
@@ -97,6 +92,7 @@ function ScrollTop(props) {
 export default function AppHeader(props) {
   const classes = useStyles();
   const router = useRouter();
+  const { openCart } = useCart();
 
   return (
     <>
@@ -110,6 +106,9 @@ export default function AppHeader(props) {
         <div className={classes.links}>
           <SocialLinks email />
         </div>
+        <IconButton className={classes.cart} onClick={openCart}>
+          <ShoppingCartIcon color="primary" />
+        </IconButton>
       </Toolbar>
       <Toolbar style={{ minHeight: 75 }} id="back-to-top-anchor" />
       <ScrollTop {...props}>

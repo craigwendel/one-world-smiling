@@ -5,6 +5,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../src/theme';
 import Page from '../components/Page';
+import { CartStateProvider } from '../lib/cartState';
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
@@ -27,9 +28,11 @@ export default function MyApp(props) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Page>
-          <Component {...pageProps} />
-        </Page>
+        <CartStateProvider>
+          <Page>
+            <Component {...pageProps} />
+          </Page>
+        </CartStateProvider>
       </ThemeProvider>
     </React.Fragment>
   );
