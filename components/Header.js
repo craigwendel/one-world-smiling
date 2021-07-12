@@ -12,7 +12,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import SocialLinks from './SocialLinks';
 import MobileMenu from './MobileMenu';
-import { useCart } from '../lib/cartState';
+import { useCart } from '../lib';
 
 const useStyles = makeStyles((theme) => ({
   header: {

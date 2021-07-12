@@ -35,12 +35,12 @@ const useStyles = makeStyles((theme) => ({
 const slides = [
   {
     id: 1,
-    name: 'Our Shirts',
-    button: 'Order Now!',
+    name: 'Our Tee Shirts!',
+    button: 'Shop Now!',
     color: '#FAB5B5',
     img: '/t-shirt-front-back.png',
     width: 250,
-    href: '/order',
+    href: '/product',
   },
   {
     id: 2,
