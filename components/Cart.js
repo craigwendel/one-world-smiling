@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useRouter } from 'next/router';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
@@ -48,6 +49,7 @@ const useStyles = makeStyles({
 
 export default function Cart() {
   const classes = useStyles();
+  const router = useRouter();
   const { cartOpen, cartItems, closeCart, removeCartItem } = useCart();
 
   const capitalize = (s) => s && s[0].toUpperCase() + s.slice(1);
@@ -71,9 +73,11 @@ export default function Cart() {
         <Typography component="h6">{`${quantity} x ${formatMoney(
           price
         )} each`}</Typography>
-        <Typography variant="h6" color="primary">{`Total: ${formatMoney(
-          parseFloat(quantity * price)
-        )}`}</Typography>
+        <Typography
+          component="h6"
+          variant="h6"
+          color="primary"
+        >{`Total: ${formatMoney(parseFloat(quantity * price))}`}</Typography>
       </>
     );
   };
@@ -110,13 +114,31 @@ export default function Cart() {
             </ListItem>
           ))
         ) : (
-          <ListItem>
+          <ListItem className={classes.drawer}>
             <ListItemText primary="No items are currently in your cart." />
+            <Button
+              onClick={() => {
+                router.push('/product');
+                closeCart();
+              }}
+              variant="outlined"
+              color="primary"
+            >
+              Shop Now
+            </Button>
           </ListItem>
         )}
       </List>
       <Divider className={classes.divider} />
-      <Button className={classes.button} variant="contained" color="primary">
+      <Button
+        onClick={() => {
+          router.push('/checkout');
+          closeCart();
+        }}
+        className={classes.button}
+        variant="contained"
+        color="primary"
+      >
         Checkout
       </Button>
     </Drawer>

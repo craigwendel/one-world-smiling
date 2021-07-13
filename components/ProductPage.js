@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     gridTemplateColumns: '500px 1fr',
     alignItems: 'center',
     gridGap: '1rem',
-    marginBottom: '3rem',
+    margin: '3rem 0rem 5rem 0rem',
     [theme.breakpoints.down('sm')]: {
       gridTemplateColumns: '400px 1fr',
     },
@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
     width: 250,
     marginTop: theme.spacing(1),
     padding: theme.spacing(2),
-    color: '#fff',
+    color: '#ffffff !important',
   },
 }));
 
