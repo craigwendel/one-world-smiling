@@ -1,7 +1,7 @@
 export const links = [
   {
-    name: 'Order Now!',
-    path: '/order',
+    name: 'Shop Now!',
+    path: '/product',
   },
   {
     name: `Jaylen's Message`,

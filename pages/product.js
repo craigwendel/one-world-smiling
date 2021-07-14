@@ -5,8 +5,8 @@ export default function Product() {
   return (
     <ProductPage
       name="1 World Smiling Tee"
-      price={19.99}
-      img="/t-shirt-front-back.png"
+      img="/t-shirt-yellow-front.jpg"
+      basePrice={14.95}
     />
   );
 }

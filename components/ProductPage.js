@@ -82,9 +82,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProductPage({ name, img, price }) {
+export default function ProductPage({ name, img, basePrice }) {
   const { cartItems, addCartItem, openCart } = useCart();
-  const [item, setItem] = useState({ size: '', color: '', quantity: 0 });
+  const [item, setItem] = useState({
+    size: '',
+    color: '',
+    quantity: 0,
+  });
+  const [price, setPrice] = useState(basePrice);
+  const updatePrice = (size) => {
+    if (size.includes('youth')) {
+      setPrice(14.95);
+    } else if (size === 'xxl' || size === 'xxxl') {
+      setPrice(20.95);
+    } else {
+      setPrice(18.95);
+    }
+  };
 
   const SizeSwatch = ({ value, label, handleChange }) => {
     return (
@@ -92,7 +106,10 @@ export default function ProductPage({ name, img, price }) {
         className={`${classes.swatch} ${
           item.size === value ? classes.sizeSelected : ''
         }`}
-        onClick={() => handleChange('size', value)}
+        onClick={() => {
+          handleChange('size', value);
+          updatePrice(value);
+        }}
       >
         {label}
       </div>
@@ -114,21 +131,24 @@ export default function ProductPage({ name, img, price }) {
     { value: 'lg', label: 'L' },
     { value: 'xl', label: 'XL' },
     { value: 'xxl', label: 'XXL' },
+    { value: 'xxxl', label: 'XXXL' },
   ];
-  const youthOptions = sizeOptions.map((s) => ({
-    ...s,
-    value: `youth ${s.value}`,
-  }));
+  const youthOptions = sizeOptions
+    .filter((f) => !f.value.includes('xxl'))
+    .map((s) => ({
+      ...s,
+      value: `youth ${s.value}`,
+    }));
 
   const handleChange = (key, value) => {
-    console.log();
     setItem({ ...item, [key]: key === 'quantity' ? parseFloat(value) : value });
   };
 
   const handleAddItem = () => {
-    const newItem = { ...item, id: cartItems?.length + 1, name, price, img };
+    const newItem = { ...item, id: cartItems?.length + 1, name, img, price };
     addCartItem(newItem);
     setItem({ size: '', color: '', quantity: 0 });
+    setPrice(basePrice);
     openCart();
   };
 

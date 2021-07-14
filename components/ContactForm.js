@@ -2,13 +2,10 @@ import React, { useState } from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Fab from '@material-ui/core/Fab';
-import IconButton from '@material-ui/core/IconButton';
-import AddIcon from '@material-ui/icons/Add';
-import DeleteIcon from '@material-ui/icons/Delete';
 import SnackbarAlert from './SnackbarAlert';
 
 const useStyles = makeStyles((theme) => ({
@@ -22,9 +19,9 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     marginTop: theme.spacing(3),
   },
-  input: {
-    width: 100,
-    margin: theme.spacing(1),
+  progress: {
+    width: '100%',
+    marginTop: theme.spacing(1),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -32,16 +29,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ContactForm({ order }) {
+export default function ContactForm() {
   const classes = useStyles();
-  const sizeOptions = [
-    { value: 'sm', label: 'Small' },
-    { value: 'md', label: 'Medium' },
-    { value: 'lg', label: 'Large' },
-    { value: 'xl', label: 'X-Large' },
-    { value: 'xxl', label: 'XX-Large' },
-  ];
-  const [tshirts, setTshirts] = useState([{ id: 1, size: '', quantity: 0 }]);
   const [status, setStatus] = useState({
     submitted: false,
     submitting: false,
@@ -61,25 +50,16 @@ export default function ContactForm({ order }) {
       [name]: value,
     });
   };
-  const handleShirtChange = (e, id) => {
-    const { name, value, type } = e.target;
-    const target = tshirts.findIndex((t) => t.id === id);
-    tshirts[target][name] = type ? parseFloat(value) : value;
-    setTshirts([...tshirts]);
-  };
-  const addShirt = () => {
-    setTshirts([...tshirts, { id: tshirts.length + 1, size: '', quantity: 0 }]);
-  };
-  const deleteShirt = (id) => {
-    setTshirts(tshirts.filter((t) => t.id !== id));
-  };
 
-  const handleResponse = (status, msg) => {
+  const handleResponse = (status) => {
     if (status === 200) {
       setStatus({
         submitted: true,
         submitting: false,
-        info: { error: false, msg: msg },
+        info: {
+          error: false,
+          msg: `Thanks for your submission! We'll be in touch soon!`,
+        },
       });
       setState({
         firstName: '',
@@ -88,12 +68,14 @@ export default function ContactForm({ order }) {
         phone: '',
         message: '',
       });
-      setTshirts([{ id: 1, size: '', quantity: 0 }]);
     } else {
       setStatus({
         submitted: true,
         submitting: false,
-        info: { error: true, msg: msg },
+        info: {
+          error: true,
+          msg: `There was a problem with your request, please try again later`,
+        },
       });
     }
   };
@@ -101,15 +83,16 @@ export default function ContactForm({ order }) {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     setStatus((prevStatus) => ({ ...prevStatus, submitting: true }));
-    const res = await fetch('/api/send', {
+    fetch('/api/contact', {
       method: 'POST',
       headers: {
+        Accept: 'application/json, text/plain, */*',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ ...state, tshirts, order }),
+      body: JSON.stringify(state),
+    }).then((res) => {
+      handleResponse(res.status);
     });
-    const text = await res.text();
-    handleResponse(res.status, text);
   };
 
   return (
@@ -123,8 +106,18 @@ export default function ContactForm({ order }) {
         }
       />
       <Typography color="primary" component="h2" variant="h3">
-        {order ? 'Order Tee Shirts' : 'Contact Us'}
+        Contact Us
       </Typography>
+      <Typography variant="h6">
+        Fill out the request below with your information and message or feel
+        free to email us at{' '}
+        <Link href="mailto:1worldsmiling@gmail.com">
+          1worldsmiling@gmail.com
+        </Link>
+      </Typography>
+      {status.submitting ? (
+        <LinearProgress className={classes.progress} color="primary" />
+      ) : null}
       <form className={classes.form} noValidate onSubmit={handleOnSubmit}>
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={12} sm={6}>
@@ -180,83 +173,28 @@ export default function ContactForm({ order }) {
               autoComplete="phone"
             />
           </Grid>
-          {order ? (
-            <>
-              <Typography>Shirt Sizes</Typography>
-              {tshirts.map((t) => (
-                <Grid key={t.id} container alignItems="center">
-                  <TextField
-                    select
-                    className={classes.input}
-                    variant="outlined"
-                    fullWidth
-                    name="size"
-                    label="Size"
-                    id="size"
-                    value={t.size}
-                    onChange={(e) => handleShirtChange(e, t.id)}
-                  >
-                    {sizeOptions?.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                  <TextField
-                    className={classes.input}
-                    type="number"
-                    variant="outlined"
-                    fullWidth
-                    name="quantity"
-                    label="Quantity"
-                    id="quantity"
-                    value={t.quantity}
-                    onChange={(e) => handleShirtChange(e, t.id)}
-                  />
-
-                  <IconButton
-                    aria-label="delete"
-                    onClick={() => deleteShirt(t.id)}
-                  >
-                    <DeleteIcon color="error" />
-                  </IconButton>
-                </Grid>
-              ))}
-              <Grid item xs={3}>
-                <Fab
-                  size="small"
-                  color="primary"
-                  aria-label="add shirt option"
-                  onClick={addShirt}
-                >
-                  <AddIcon />
-                </Fab>
-              </Grid>
-            </>
-          ) : (
-            <Grid item xs={12} sm={6}>
-              <TextField
-                multiline
-                maxRows={3}
-                variant="outlined"
-                fullWidth
-                placeholder="Hi! I would like to ask something..."
-                value={state.message}
-                onChange={handleChange}
-                name="message"
-                label="Your Message"
-                id="message"
-              />
-            </Grid>
-          )}
+          <Grid item xs={12} sm={6}>
+            <TextField
+              multiline
+              maxRows={3}
+              variant="outlined"
+              fullWidth
+              placeholder="Hi! I would like to ask something..."
+              value={state.message}
+              onChange={handleChange}
+              name="message"
+              label="Your Message"
+              id="message"
+            />
+          </Grid>
         </Grid>
-
         <Button
           type="submit"
           fullWidth
           variant="contained"
           color="secondary"
           className={classes.submit}
+          disabled={status.submitting}
         >
           Submit
         </Button>

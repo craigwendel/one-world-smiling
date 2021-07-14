@@ -11,8 +11,13 @@ export default function PaymentForm() {
       <Typography variant="h6" gutterBottom>
         Payment method
       </Typography>
+      <Typography gutterBottom>
+        We are currently not accepting credit cards on the website but rather
+        our team will reach out to you at your contact information to complete
+        payment for this order.
+      </Typography>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
+        {/* <Grid item xs={12} md={6}>
           <TextField
             required
             id="cardName"
@@ -48,11 +53,11 @@ export default function PaymentForm() {
             fullWidth
             autoComplete="cc-csc"
           />
-        </Grid>
+        </Grid> */}
         <Grid item xs={12}>
           <FormControlLabel
             control={<Checkbox color="secondary" name="saveCard" value="yes" />}
-            label="Remember credit card details for next time"
+            label="I understand that I will be contacted to complete payment"
           />
         </Grid>
       </Grid>

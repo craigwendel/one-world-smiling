@@ -33,9 +33,9 @@ export default function Message() {
         1 World Smiling
       </Typography>
       <Image
-        src="/smile-world-text.png"
+        src="/logo-yellow-text.png"
         width={300}
-        height={350}
+        height={325}
         layout="intrinsic"
         alt="one world smiling logo"
       />
