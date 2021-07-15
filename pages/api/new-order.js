@@ -27,7 +27,7 @@ export default async function (req, res) {
   const { orderNumber, cartItems, total } = req.body;
   const mailData = {
     from: 'orders.1worldsmiling@gmail.com',
-    to: 'wendelcraig@gmail.com',
+    to: '1worldsmiling@gmail.com, wendelcraig@gmail.com',
     subject: `New Order from ${firstName} ${lastName} | Order #${orderNumber}`,
     text: `Order #${orderNumber}`,
     html: `<h3>Contact Details:</h3>
