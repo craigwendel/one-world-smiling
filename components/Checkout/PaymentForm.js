@@ -5,16 +5,16 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
-export default function PaymentForm() {
+export default function PaymentForm({ confirm, setConfirm }) {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
         Payment method
       </Typography>
       <Typography gutterBottom>
-        We are currently not accepting credit cards on the website but rather
-        our team will reach out to you at your contact information to complete
-        payment for this order.
+        We are currently NOT accepting credit cards on the website. Our team
+        will reach out to you at your contact information to complete payment
+        for this order.
       </Typography>
       <Grid container spacing={3}>
         {/* <Grid item xs={12} md={6}>
@@ -56,8 +56,15 @@ export default function PaymentForm() {
         </Grid> */}
         <Grid item xs={12}>
           <FormControlLabel
-            control={<Checkbox color="secondary" name="saveCard" value="yes" />}
-            label="I understand that I will be contacted to complete payment"
+            control={
+              <Checkbox
+                color="secondary"
+                name="saveCard"
+                value={confirm}
+                onChange={() => setConfirm(!confirm)}
+              />
+            }
+            label="I understand that I will be contacted to complete payment after the order is placed."
           />
         </Grid>
       </Grid>

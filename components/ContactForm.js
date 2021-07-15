@@ -95,6 +95,8 @@ export default function ContactForm() {
     });
   };
 
+  const disabled = state.email && state.phone ? false : true;
+
   return (
     <div className={classes.root}>
       <SnackbarAlert
@@ -194,7 +196,7 @@ export default function ContactForm() {
           variant="contained"
           color="secondary"
           className={classes.submit}
-          disabled={status.submitting}
+          disabled={disabled || status.submitting}
         >
           Submit
         </Button>

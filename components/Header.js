@@ -99,7 +99,7 @@ export default function AppHeader(props) {
       <Toolbar variant="dense" classes={{ root: classes.header }}>
         <MobileMenu />
         <div className={classes.logoBar} onClick={() => router.push('/')}>
-          <Typography color="primary" variant="h3">
+          <Typography color="primary" component="h1" variant="h3">
             1 World Smiling
           </Typography>
         </div>

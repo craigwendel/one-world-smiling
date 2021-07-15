@@ -51,18 +51,13 @@ export default function Cart() {
   const classes = useStyles();
   const router = useRouter();
   const { cartOpen, cartItems, closeCart, removeCartItem } = useCart();
-
-  const capitalize = (s) => s && s[0].toUpperCase() + s.slice(1);
-
   const Primary = ({ name, color, size }) => {
     return (
       <div>
         <Typography component="p" variant="h6">
           {name}
         </Typography>
-        <Typography>{`${capitalize(
-          color
-        )} - ${size.toUpperCase()}`}</Typography>
+        <Typography>{`${color} - ${size.toUpperCase()}`}</Typography>
       </div>
     );
   };

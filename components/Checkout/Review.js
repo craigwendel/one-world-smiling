@@ -34,19 +34,25 @@ export default function Review({ cartItems, total, details }) {
       </Typography>
       <List disablePadding>
         {cartItems.length > 0 ? (
-          cartItems.map((item) => (
-            <ListItem className={classes.listItem} key={item.id}>
-              <ListItemText
-                primary={`${
-                  item.name
-                } \u00A0|\u00A0 ${item.size.toUpperCase()} - ${item.color}`}
-                secondary={`${item.quantity} x ${item.price}`}
-              />
-              <Typography variant="body2">
-                {formatMoney(item.quantity * item.price)}
-              </Typography>
+          <>
+            {cartItems.map((item) => (
+              <ListItem className={classes.listItem} key={item.id}>
+                <ListItemText
+                  primary={`${
+                    item.name
+                  } \u00A0|\u00A0 ${item.size.toUpperCase()} - ${item.color}`}
+                  secondary={`${item.quantity} x ${item.price}`}
+                />
+                <Typography variant="body2">
+                  {formatMoney(item.quantity * item.price)}
+                </Typography>
+              </ListItem>
+            ))}
+            <ListItem className={classes.listItem}>
+              <ListItemText primary="Shipping" secondary="Flat Rate Cost" />
+              <Typography variant="body2">$4.99</Typography>
             </ListItem>
-          ))
+          </>
         ) : (
           <ListItem>
             <ListItemText
@@ -66,7 +72,7 @@ export default function Review({ cartItems, total, details }) {
         <ListItem className={classes.listItem}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" className={classes.total}>
-            {formatMoney(total)}
+            {formatMoney(total + 4.99)}
           </Typography>
         </ListItem>
       </List>
@@ -87,7 +93,9 @@ export default function Review({ cartItems, total, details }) {
             Payment details
           </Typography>
           <Grid container>
-            <Typography>We will reach out after the order is placed</Typography>
+            <Typography>
+              We will reach out after the order is placed to collect payment.
+            </Typography>
             {/* {payments.map((payment) => (
               <React.Fragment key={payment.name}>
                 <Grid item xs={6}>

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
@@ -6,9 +7,11 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
 import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
+import SnackbarAlert from '../SnackbarAlert';
 import { useCart } from '../../lib';
 
 const useStyles = makeStyles((theme) => ({
@@ -47,7 +50,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Checkout() {
   const classes = useStyles();
-  const { cartItems } = useCart();
+  const router = useRouter();
+  const { cartItems, emptyCart } = useCart();
   const total = cartItems.reduce((acc, cur) => {
     acc = cur.quantity * cur.price + acc;
     return acc;
@@ -66,8 +70,20 @@ export default function Checkout() {
     zip: '',
     country: '',
   });
+  const [confirm, setConfirm] = useState(false);
+  const [orderNumber, setOrderNumber] = useState(0);
+  useEffect(() => {
+    setOrderNumber(Math.floor(100000 + Math.random() * 900000));
+    return () => {
+      setOrderNumber(0);
+    };
+  }, []);
 
-  console.log(activeStep);
+  const [status, setStatus] = useState({
+    submitted: false,
+    submitting: false,
+    info: { error: false, msg: null },
+  });
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -84,7 +100,7 @@ export default function Checkout() {
       case 0:
         return <AddressForm details={details} setDetails={setDetails} />;
       case 1:
-        return <PaymentForm />;
+        return <PaymentForm confirm={confirm} setConfirm={setConfirm} />;
       case 2:
         return <Review cartItems={cartItems} total={total} details={details} />;
       default:
@@ -92,10 +108,79 @@ export default function Checkout() {
     }
   }
 
-  const canSubmit = activeStep === 2 && total === 0 ? true : false;
+  const canSubmit = (activeStep, details, confirm, total) => {
+    if (activeStep === 0) {
+      return details.email && details.phone && details.address1 && details.zip
+        ? false
+        : true;
+    } else if (activeStep === 1) {
+      return confirm ? false : true;
+    } else if (activeStep === 2) {
+      return total > 0 ? false : true;
+    } else {
+      return true;
+    }
+  };
+
+  const disabled = canSubmit(activeStep, details, confirm, total);
+
+  const handleResponse = (status) => {
+    if (status === 200) {
+      emptyCart();
+      setStatus({
+        submitted: true,
+        submitting: false,
+        info: {
+          error: false,
+          msg: `Thanks for your submission! We'll be in touch soon!`,
+        },
+      });
+      handleNext();
+    } else {
+      setStatus({
+        submitted: true,
+        submitting: false,
+        info: {
+          error: true,
+          msg: `There was a problem with your request, please try again later`,
+        },
+      });
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus((prevStatus) => ({ ...prevStatus, submitting: true }));
+    fetch('/api/order', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ details, orderNumber, total, cartItems }),
+    }).then((res) => {
+      handleResponse(res.status);
+    });
+    fetch('/api/new-order', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ details, orderNumber, total, cartItems }),
+    });
+  };
 
   return (
     <main className={classes.layout}>
+      <SnackbarAlert
+        open={status.submitted}
+        severity={status.info.error ? 'error' : 'success'}
+        message={status.info.msg}
+        onClose={() =>
+          setStatus((prevStatus) => ({ ...prevStatus, submitted: false }))
+        }
+      />
       <Paper className={classes.paper}>
         <Typography component="h1" variant="h4" align="center">
           Checkout
@@ -111,13 +196,27 @@ export default function Checkout() {
           {activeStep === steps.length ? (
             <React.Fragment>
               <Typography variant="h5" gutterBottom>
-                Thank you for your order.
+                Thank you for your order!
               </Typography>
               <Typography variant="subtitle1">
-                Your order number is #2001539. We have emailed your order
-                confirmation, and will send you an update when your order has
-                shipped.
+                {`
+                Your order number is #${orderNumber}. We have emailed your order
+                confirmation, and will reach out to you directly at the contact
+                information provided to collect payment. Thanks again and feel
+                free to reach us at `}
+                <Link href="mailto:1worldsmiling@gmail.com">
+                  1worldsmiling@gmail.com
+                </Link>
+                {` with any questions!`}
               </Typography>
+              <Button
+                className={classes.button}
+                variant="outlined"
+                color="primary"
+                onClick={() => router.push('/')}
+              >
+                Return Home
+              </Button>
             </React.Fragment>
           ) : (
             <React.Fragment>
@@ -131,9 +230,15 @@ export default function Checkout() {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={handleNext}
+                  onClick={(e) => {
+                    if (activeStep === steps.length - 1) {
+                      handleSubmit(e);
+                    } else {
+                      handleNext();
+                    }
+                  }}
                   className={classes.button}
-                  disabled={canSubmit}
+                  disabled={disabled || status.submitting}
                 >
                   {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
                 </Button>

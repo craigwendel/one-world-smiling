@@ -169,7 +169,6 @@ export default function ProductPage({ name, img, basePrice }) {
           src={`${img}${item.color}.jpg`}
           width={400}
           height={400}
-          layout="intrinsic"
           alt={name}
         />
       </div>
