@@ -6,7 +6,9 @@ import Button from '@material-ui/core/Button';
 import Badge from '@material-ui/core/Badge';
 import Avatar from '@material-ui/core/Avatar';
 import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import CheckIcon from '@material-ui/icons/CheckCircle';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
@@ -71,6 +73,9 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.secondary.main,
     color: '#fff',
   },
+  select: {
+    width: 125,
+  },
   input: {
     width: 60,
   },
@@ -85,10 +90,12 @@ const useStyles = makeStyles((theme) => ({
 export default function ProductPage({ name, img, basePrice }) {
   const { cartItems, addCartItem, openCart } = useCart();
   const [item, setItem] = useState({
+    sizeType: 'Youth',
     size: '',
-    color: '',
+    color: 'Yellow',
     quantity: 0,
   });
+  console.log(`${img}${item.color}.jpg`);
   const [price, setPrice] = useState(basePrice);
   const updatePrice = (size) => {
     if (size.includes('youth')) {
@@ -117,13 +124,15 @@ export default function ProductPage({ name, img, basePrice }) {
   };
 
   const colors = [
-    'yellow',
-    'red',
-    'orange',
-    'green',
-    'blue',
-    'indigo',
-    'violet',
+    { label: 'Yellow', hex: '#dec86d' },
+    { label: 'Heather-Red', hex: '#e74253' },
+    { label: 'Heather-Grass', hex: '#4e895f' },
+    { label: 'Heather-Blue', hex: '#558bcc' },
+    { label: 'Neon-Orange', hex: '#fe7e08' },
+    { label: 'Neon-Green', hex: '#6ad45e' },
+    { label: 'Neon-Blue', hex: '#0388b2' },
+    { label: 'Neon-Pink', hex: '#fd82a3' },
+    { label: 'Team-Purple', hex: '#482d64' },
   ];
   const sizeOptions = [
     { value: 'sm', label: 'S' },
@@ -147,7 +156,7 @@ export default function ProductPage({ name, img, basePrice }) {
   const handleAddItem = () => {
     const newItem = { ...item, id: cartItems?.length + 1, name, img, price };
     addCartItem(newItem);
-    setItem({ size: '', color: '', quantity: 0 });
+    setItem({ ...item, size: '', quantity: 0 });
     setPrice(basePrice);
     openCart();
   };
@@ -157,7 +166,7 @@ export default function ProductPage({ name, img, basePrice }) {
     <div className={classes.container}>
       <div className={classes.image}>
         <Image
-          src={img}
+          src={`${img}${item.color}.jpg`}
           width={400}
           height={400}
           layout="intrinsic"
@@ -169,54 +178,73 @@ export default function ProductPage({ name, img, basePrice }) {
           {name}
         </Typography>
         <Typography variant="h4">{`$${price}`}</Typography>
+        <TextField
+          select
+          className={classes.select}
+          variant="outlined"
+          type="number"
+          label="Select Size Type"
+          value={item.sizeType}
+          onChange={(e) => handleChange('sizeType', e.target.value)}
+        >
+          {['Youth', 'Adult'].map((option) => (
+            <MenuItem key={option} value={option}>
+              {option}
+            </MenuItem>
+          ))}
+        </TextField>
         <div className={classes.flexRow}>
           <Typography>Color</Typography>
           {colors.map((c) => (
-            <Badge
-              key={c}
-              classes={{ anchorOriginTopRightCircular: classes.badge }}
-              invisible={item.color !== c}
-              overlap="circular"
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              badgeContent={<CheckIcon fontSize="small" color="primary" />}
-            >
-              <Avatar
-                className={`${classes.color} ${
-                  item.color === c ? classes.colorSelected : ''
-                }`}
-                style={{ background: c }}
-                onClick={() => handleChange('color', c)}
+            <Tooltip key={c.label} title={c.label} placement="top">
+              <Badge
+                classes={{ anchorOriginTopRightCircular: classes.badge }}
+                invisible={item.color !== c.label}
+                overlap="circular"
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                badgeContent={<CheckIcon fontSize="small" color="primary" />}
               >
-                {' '}
-              </Avatar>
-            </Badge>
+                <Avatar
+                  className={`${classes.color} ${
+                    item.color === c.label ? classes.colorSelected : ''
+                  }`}
+                  style={{ background: c.hex }}
+                  onClick={() => handleChange('color', c.label)}
+                >
+                  {' '}
+                </Avatar>
+              </Badge>
+            </Tooltip>
           ))}
         </div>
-        <div className={classes.flexRow}>
-          <Typography>Youth</Typography>
-          {youthOptions.map((s) => (
-            <SizeSwatch
-              key={s.value}
-              value={s.value}
-              label={s.label}
-              handleChange={handleChange}
-            />
-          ))}
-        </div>
-        <div className={classes.flexRow}>
-          <Typography>Adult</Typography>
-          {sizeOptions.map((s) => (
-            <SizeSwatch
-              key={s.value}
-              value={s.value}
-              label={s.label}
-              handleChange={handleChange}
-            />
-          ))}
-        </div>
+        {item.sizeType === 'Youth' ? (
+          <div className={classes.flexRow}>
+            <Typography>Youth</Typography>
+            {youthOptions.map((s) => (
+              <SizeSwatch
+                key={s.value}
+                value={s.value}
+                label={s.label}
+                handleChange={handleChange}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className={classes.flexRow}>
+            <Typography>Adult</Typography>
+            {sizeOptions.map((s) => (
+              <SizeSwatch
+                key={s.value}
+                value={s.value}
+                label={s.label}
+                handleChange={handleChange}
+              />
+            ))}
+          </div>
+        )}
         <div className={classes.flexRow}>
           <IconButton
             onClick={() =>

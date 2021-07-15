@@ -141,6 +141,18 @@ export default function Cart() {
       >
         Checkout
       </Button>
+      {cartItems?.length > 0 ? (
+        <Button
+          onClick={() => {
+            router.push('/product');
+            closeCart();
+          }}
+          variant="outlined"
+          color="primary"
+        >
+          Continue Shopping
+        </Button>
+      ) : null}
     </Drawer>
   );
 }
