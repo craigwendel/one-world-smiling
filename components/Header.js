@@ -7,6 +7,7 @@ import Fab from '@material-ui/core/Fab';
 import Typography from '@material-ui/core/Typography';
 import Zoom from '@material-ui/core/Zoom';
 import IconButton from '@material-ui/core/IconButton';
+import Badge from '@material-ui/core/Badge';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
@@ -92,7 +93,7 @@ function ScrollTop(props) {
 export default function AppHeader(props) {
   const classes = useStyles();
   const router = useRouter();
-  const { openCart } = useCart();
+  const { openCart, cartItems } = useCart();
 
   return (
     <>
@@ -107,7 +108,9 @@ export default function AppHeader(props) {
           <SocialLinks email />
         </div>
         <IconButton className={classes.cart} onClick={openCart}>
-          <ShoppingCartIcon color="primary" />
+          <Badge badgeContent={cartItems?.length} color="secondary">
+            <ShoppingCartIcon color="primary" />
+          </Badge>
         </IconButton>
       </Toolbar>
       <Toolbar style={{ minHeight: 75 }} id="back-to-top-anchor" />

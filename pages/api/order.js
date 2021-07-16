@@ -1,5 +1,6 @@
 require('dotenv').config();
 const nodemailer = require('nodemailer');
+import formatMoney from '../../lib/formatMoney';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async function (req, res) {
@@ -14,7 +15,6 @@ export default async function (req, res) {
   });
   const { firstName, lastName, phone, email } = req.body.details;
   const { orderNumber, cartItems, total } = req.body;
-  console.log('ON', orderNumber);
   const mailData = {
     from: 'orders.1worldsmiling@gmail.com',
     to: email,
@@ -30,8 +30,8 @@ export default async function (req, res) {
         } - Size: ${item.size.toUpperCase()}`
     )}
     </ul>
-    <h3>Total: $${total + 4.99}</h3>
-    <p>Our team is working hard to process your order and will be reaching out shortly to collect payment to complete this transaction.  If you have any questions in the meantime, feel free to email us a <a>1worldsmiling@gmail.com</a> and we'll be happy to assist!</p>
+    <h3>Total: ${formatMoney(total + 4.95)}</h3>
+    <p>Our team is notificed of your order and will be reaching out shortly to explain the next steps in the order process.  If you have any questions in the meantime, feel free to email us a <a>1worldsmiling@gmail.com</a> and we'll be happy to assist!</p>
     `,
   };
   try {

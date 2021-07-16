@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     gridTemplateColumns: '500px 1fr',
     alignItems: 'center',
     gridGap: '1rem',
-    margin: '3rem 0rem 5rem 0rem',
+    margin: '2rem 1.5rem 5rem 1.5rem',
     [theme.breakpoints.down('sm')]: {
       gridTemplateColumns: '400px 1fr',
     },
@@ -97,13 +97,15 @@ export default function ProductPage({ name, img, basePrice }) {
   });
   console.log(`${img}${item.color}.jpg`);
   const [price, setPrice] = useState(basePrice);
-  const updatePrice = (size) => {
-    if (size.includes('youth')) {
+  const updatePrice = (type, size) => {
+    if (type.includes('Youth')) {
       setPrice(14.95);
-    } else if (size === 'xxl' || size === 'xxxl') {
-      setPrice(20.95);
-    } else {
-      setPrice(18.95);
+    } else if (type === 'Adult') {
+      if (size && ['xxl', 'xxxl'].includes(size)) {
+        setPrice(20.95);
+      } else {
+        setPrice(18.95);
+      }
     }
   };
 
@@ -115,7 +117,7 @@ export default function ProductPage({ name, img, basePrice }) {
         }`}
         onClick={() => {
           handleChange('size', value);
-          updatePrice(value);
+          updatePrice(item.sizeType, value);
         }}
       >
         {label}
@@ -123,7 +125,7 @@ export default function ProductPage({ name, img, basePrice }) {
     );
   };
 
-  const colors = [
+  const youthColors = [
     { label: 'Yellow', hex: '#dec86d' },
     { label: 'Heather-Red', hex: '#e74253' },
     { label: 'Heather-Grass', hex: '#4e895f' },
@@ -134,6 +136,18 @@ export default function ProductPage({ name, img, basePrice }) {
     { label: 'Neon-Pink', hex: '#fd82a3' },
     { label: 'Team-Purple', hex: '#482d64' },
   ];
+  const adultColors = [
+    { label: 'Yellow', hex: '#dec86d' },
+    { label: 'Sea-Green', hex: '#12c6b3' },
+    { label: 'Magenta', hex: '#ab5a81' },
+    { label: 'Kelly-Green', hex: '#0fac7a' },
+    { label: 'Cool-Blue', hex: '#6e95ca' },
+    { label: 'Grass-Green', hex: '#4a7760' },
+    { label: 'Charity-Pink', hex: '#ff8aae' },
+    { label: 'Autumn', hex: '#c8764d' },
+    { label: 'Aqua', hex: '#45b3cb' },
+  ];
+  const colors = item.sizeType === 'Youth' ? youthColors : adultColors;
   const sizeOptions = [
     { value: 'sm', label: 'S' },
     { value: 'md', label: 'M' },
@@ -149,8 +163,18 @@ export default function ProductPage({ name, img, basePrice }) {
       value: `youth ${s.value}`,
     }));
 
+  const sizes = item.sizeType === 'Youth' ? youthOptions : sizeOptions;
+
   const handleChange = (key, value) => {
-    setItem({ ...item, [key]: key === 'quantity' ? parseFloat(value) : value });
+    if (key === 'sizeType') {
+      setItem({ color: 'Yellow', size: '', quantity: 0, [key]: value });
+      updatePrice(value);
+    } else {
+      setItem({
+        ...item,
+        [key]: key === 'quantity' ? parseFloat(value) : value,
+      });
+    }
   };
 
   const handleAddItem = () => {
@@ -176,7 +200,6 @@ export default function ProductPage({ name, img, basePrice }) {
         <Typography color="primary" variant="h3">
           {name}
         </Typography>
-        <Typography variant="h4">{`$${price}`}</Typography>
         <TextField
           select
           className={classes.select}
@@ -219,31 +242,18 @@ export default function ProductPage({ name, img, basePrice }) {
             </Tooltip>
           ))}
         </div>
-        {item.sizeType === 'Youth' ? (
-          <div className={classes.flexRow}>
-            <Typography>Youth</Typography>
-            {youthOptions.map((s) => (
-              <SizeSwatch
-                key={s.value}
-                value={s.value}
-                label={s.label}
-                handleChange={handleChange}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className={classes.flexRow}>
-            <Typography>Adult</Typography>
-            {sizeOptions.map((s) => (
-              <SizeSwatch
-                key={s.value}
-                value={s.value}
-                label={s.label}
-                handleChange={handleChange}
-              />
-            ))}
-          </div>
-        )}
+        <div className={classes.flexRow}>
+          <Typography>{item.sizeType}</Typography>
+          {sizes.map((s) => (
+            <SizeSwatch
+              key={s.value}
+              value={s.value}
+              label={s.label}
+              handleChange={handleChange}
+            />
+          ))}
+        </div>
+        <Typography variant="h4">{`$${price} each`}</Typography>
         <div className={classes.flexRow}>
           <IconButton
             onClick={() =>

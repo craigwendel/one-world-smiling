@@ -3,21 +3,30 @@ import Image from 'next/image';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Typography from '@material-ui/core/Typography';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   message: {
     display: 'grid',
-    gridTemplateColumns: '1fr',
+    gridTemplateColumns: '1fr 1fr',
     gridGap: '2rem',
     padding: '5rem',
     justifyItems: 'center',
+    [theme.breakpoints.down('xs')]: {
+      gridTemplateColumns: '1fr',
+    },
   },
-});
+}));
 
 export default function Message() {
   const classes = useStyles();
   return (
     <div className={classes.message}>
-      <Typography variant="h3" color="primary" align="center">
+      <Image
+        src="/jaylens-message.png"
+        width={400}
+        height={450}
+        alt="hands holding a hand written note"
+      />
+      {/* <Typography variant="h3" color="primary" align="center">
         My Message
       </Typography>
       <Typography variant="h6" align="center">
@@ -31,7 +40,7 @@ export default function Message() {
       </Typography>
       <Typography variant="h4" color="secondary" align="center">
         1 World Smiling
-      </Typography>
+      </Typography> */}
       <Image
         src="/smile-world-text.png"
         width={300}

@@ -50,7 +50,7 @@ export default function Review({ cartItems, total, details }) {
             ))}
             <ListItem className={classes.listItem}>
               <ListItemText primary="Shipping" secondary="Flat Rate Cost" />
-              <Typography variant="body2">$4.99</Typography>
+              <Typography variant="body2">$4.95</Typography>
             </ListItem>
           </>
         ) : (
@@ -72,7 +72,7 @@ export default function Review({ cartItems, total, details }) {
         <ListItem className={classes.listItem}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" className={classes.total}>
-            {formatMoney(total + 4.99)}
+            {formatMoney(total + 4.95)}
           </Typography>
         </ListItem>
       </List>
