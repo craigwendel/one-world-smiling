@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
   button: {
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
+    color: '#ffffff !important',
   },
 }));
 
@@ -211,7 +212,7 @@ export default function Checkout() {
               </Typography>
               <Button
                 className={classes.button}
-                variant="outlined"
+                variant="contained"
                 color="primary"
                 onClick={() => router.push('/')}
               >

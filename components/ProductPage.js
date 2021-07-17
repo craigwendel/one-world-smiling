@@ -46,6 +46,10 @@ const useStyles = makeStyles((theme) => ({
     top: '20%',
     right: '20%',
   },
+  sizeBadge: {
+    top: '10%',
+    right: '10%',
+  },
   color: {
     width: theme.spacing(3),
     height: theme.spacing(3),
@@ -95,7 +99,6 @@ export default function ProductPage({ name, img, basePrice }) {
     color: 'Yellow',
     quantity: 0,
   });
-  console.log(`${img}${item.color}.jpg`);
   const [price, setPrice] = useState(basePrice);
   const updatePrice = (type, size) => {
     if (type.includes('Youth')) {
@@ -111,17 +114,44 @@ export default function ProductPage({ name, img, basePrice }) {
 
   const SizeSwatch = ({ value, label, handleChange }) => {
     return (
-      <div
-        className={`${classes.swatch} ${
-          item.size === value ? classes.sizeSelected : ''
-        }`}
-        onClick={() => {
-          handleChange('size', value);
-          updatePrice(item.sizeType, value);
-        }}
-      >
-        {label}
-      </div>
+      <>
+        {['xxl', 'xxxl'].includes(value) ? (
+          <Badge
+            classes={{ anchorOriginTopRightCircular: classes.sizeBadge }}
+            overlap="circular"
+            color="primary"
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            badgeContent="+$2"
+          >
+            <div
+              className={`${classes.swatch} ${
+                item.size === value ? classes.sizeSelected : ''
+              }`}
+              onClick={() => {
+                handleChange('size', value);
+                updatePrice(item.sizeType, value);
+              }}
+            >
+              {label}
+            </div>
+          </Badge>
+        ) : (
+          <div
+            className={`${classes.swatch} ${
+              item.size === value ? classes.sizeSelected : ''
+            }`}
+            onClick={() => {
+              handleChange('size', value);
+              updatePrice(item.sizeType, value);
+            }}
+          >
+            {label}
+          </div>
+        )}
+      </>
     );
   };
 
