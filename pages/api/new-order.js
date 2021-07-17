@@ -28,7 +28,7 @@ export default async function (req, res) {
   const { orderNumber, cartItems, total } = req.body;
   const mailData = {
     from: 'orders.1worldsmiling@gmail.com',
-    to: 'wendelcraig@gmail.com',
+    to: '1worldsmiling@gmail.com, wendelcraig@gmail.com',
     subject: `New Order from ${firstName} ${lastName} | Order #${orderNumber}`,
     text: `Order #${orderNumber}`,
     html: `<h3>Contact Details:</h3>
@@ -45,7 +45,7 @@ export default async function (req, res) {
         } - Size: ${item.size.toUpperCase()}`
     )}
     </ul>
-    <h3>Total: $${formatMoney(total + 4.95)}</h3>
+    <h3>Total: ${formatMoney(total + 4.95)}</h3>
 
     <h3>Shipping details:</h3>
     <p>${firstName} ${lastName}</p>
