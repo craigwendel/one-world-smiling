@@ -1,5 +1,6 @@
-import Checkout from '../components/Checkout/Checkout';
+import Script from 'next/script';
+import Review from '../components/Checkout/Review';
 
 export default function CheckoutPage() {
-  return <Checkout />;
+  return <Review />;
 }
