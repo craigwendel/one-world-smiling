@@ -20,7 +20,9 @@ export default function MyApp(props) {
 
   return (
     <React.Fragment>
-      <Script src="https://www.paypal.com/sdk/js?client-id=AYxqfCDd5rfhN-r844NyS0s3shyY83QvZT2gI5lvLBJwLuTmtMM92XaPlUCvWM5iMiZqRECJdTgf33HO" />
+      <Script
+        src={`https://www.paypal.com/sdk/js?client-id=${process.env.NEXT_PUBLIC_CLIENT_ID}`}
+      />
       <Head>
         <title>One World Smiling</title>
         <meta
