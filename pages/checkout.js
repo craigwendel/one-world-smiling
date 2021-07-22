@@ -6,7 +6,7 @@ export default function CheckoutPage() {
     'client-id': process.env.NEXT_PUBLIC_CLIENT_ID,
     currency: 'USD',
     intent: 'capture',
-    // "data-client-token": "abc123xyz==",
+    'enable-funding': 'venmo',
   };
   return (
     <PayPalScriptProvider options={initialOptions}>

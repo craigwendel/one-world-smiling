@@ -10,6 +10,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
+import SnackbarAlert from '../SnackbarAlert';
 import { formatMoney, useCart } from '../../lib';
 
 const useStyles = makeStyles((theme) => ({
@@ -42,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
   title: {
     marginTop: theme.spacing(2),
   },
+  orderSuccess: {
+    marginTop: '2rem',
+  },
 }));
 
 export default function Review() {
@@ -55,7 +59,7 @@ export default function Review() {
   const [succeeded, setSucceeded] = useState(false);
   const [paypalErrorMessage, setPaypalErrorMessage] = useState('');
   const [orderID, setOrderID] = useState(false);
-  console.log('ORDER ID', orderID, succeeded);
+  console.log(Boolean(paypalErrorMessage));
 
   const createOrder = (data, actions) => {
     return actions.order
@@ -63,8 +67,28 @@ export default function Review() {
         purchase_units: [
           {
             amount: {
-              value: '0.01',
+              currency_code: 'USD',
+              value: `${(total + 4.95).toFixed(2)}`,
+              breakdown: {
+                item_total: {
+                  currency_code: 'USD',
+                  value: total?.toFixed(2),
+                },
+                shipping: {
+                  currency_code: 'USD',
+                  value: '4.95',
+                },
+              },
             },
+            items: cartItems.map((item) => ({
+              name: item?.name,
+              unit_amount: {
+                currency_code: 'USD',
+                value: item?.price,
+              },
+              quantity: item?.quantity?.toString(),
+              description: `${item?.color} - ${item?.size?.toUpperCase()}`,
+            })),
           },
         ],
       })
@@ -88,12 +112,18 @@ export default function Review() {
 
   return (
     <main className={classes.layout}>
+      <SnackbarAlert
+        open={Boolean(paypalErrorMessage)}
+        severity="error"
+        message={paypalErrorMessage}
+        onClose={() => setPaypalErrorMessage('')}
+      />
       <Paper className={classes.paper}>
         <Typography component="h1" variant="h4" align="center">
           Checkout
         </Typography>
         {succeeded ? (
-          <>
+          <div className={classes.orderSuccess}>
             <Typography variant="h5" gutterBottom>
               Thank you for your order!
             </Typography>
@@ -108,7 +138,7 @@ export default function Review() {
               </Link>
               {` with any questions!`}
             </Typography>
-          </>
+          </div>
         ) : (
           <>
             <Typography variant="h6" gutterBottom>
@@ -167,18 +197,6 @@ export default function Review() {
             </List>
           </>
         )}
-        {/* <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
-          <Typography variant="h6" gutterBottom className={classes.title}>
-            Shipping
-          </Typography>
-          <Typography gutterBottom>{`${firstName} ${lastName}`}</Typography>
-          <Typography gutterBottom>{address1}</Typography>
-          {address2 ? <Typography gutterBottom>{address2}</Typography> : null}
-          <Typography
-            gutterBottom
-          >{`${city}, ${state} \u00A0${zip}, ${country}`}</Typography>
-        </Grid> */}
         <Grid item container direction="column">
           <Typography
             align="center"
@@ -194,20 +212,6 @@ export default function Review() {
             createOrder={createOrder}
             onApprove={onApprove}
           />
-          {/* <Typography>
-              We will reach out after the order is placed to collect payment.
-            </Typography> */}
-          {/* {payments.map((payment) => (
-              <React.Fragment key={payment.name}>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.name}</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.detail}</Typography>
-                </Grid>
-              </React.Fragment>
-            ))} */}
-          {/* </Grid> */}
         </Grid>
       </Paper>
     </main>
