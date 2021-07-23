@@ -59,7 +59,6 @@ export default function Review() {
   const [succeeded, setSucceeded] = useState(false);
   const [paypalErrorMessage, setPaypalErrorMessage] = useState('');
   const [orderID, setOrderID] = useState(false);
-  console.log(Boolean(paypalErrorMessage));
 
   const createOrder = (data, actions) => {
     return actions.order
