@@ -80,7 +80,9 @@ export default function Review() {
               },
             },
             items: cartItems.map((item) => ({
-              name: item?.name,
+              name: `${item?.name} (${
+                item?.color
+              } - ${item?.size?.toUpperCase()}`,
               unit_amount: {
                 currency_code: 'USD',
                 value: item?.price,
@@ -128,10 +130,8 @@ export default function Review() {
             </Typography>
             <Typography variant="subtitle1">
               {`
-          Your order number is #${orderID}. We have emailed your order
-          confirmation, and will reach out to you directly at the contact
-          information provided to collect payment. Thanks again and feel
-          free to reach us at `}
+          Your order number is #${orderID}. You will recieve a
+          confirmation via email and we are working hard on processing your order!  Thanks again and feel free to reach us at `}
               <Link href="mailto:1worldsmiling@gmail.com">
                 1worldsmiling@gmail.com
               </Link>
