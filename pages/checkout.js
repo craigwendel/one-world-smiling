@@ -6,7 +6,7 @@ export default function CheckoutPage() {
     'client-id': process.env.NEXT_PUBLIC_CLIENT_ID,
     currency: 'USD',
     intent: 'capture',
-    'enable-funding': 'venmo',
+    // 'enable-funding': 'venmo', // removing Venmo for now
   };
   return (
     <PayPalScriptProvider options={initialOptions}>
