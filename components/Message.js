@@ -14,18 +14,33 @@ const useStyles = makeStyles((theme) => ({
       gridTemplateColumns: '1fr',
     },
   },
+  type: {
+    marginBottom: '1rem',
+  },
+  image: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
 }));
 
 export default function Message() {
   const classes = useStyles();
   return (
     <div className={classes.message}>
-      <Image
-        src="/jaylens-message.png"
-        width={400}
-        height={450}
-        alt="hands holding a hand written note"
-      />
+      <div className={classes.image}>
+        <Typography
+          className={classes.type}
+          color="primary"
+          variant="h3"
+        >{`Jaylen's Message`}</Typography>
+        <Image
+          src="/jaylens-message.png"
+          width={400}
+          height={450}
+          alt="hands holding a hand written note"
+        />
+      </div>
       {/* <Typography variant="h3" color="primary" align="center">
         My Message
       </Typography>

@@ -30,7 +30,7 @@ export default async function (req, res) {
         } - Size: ${item.size.toUpperCase()}`
     )}
     </ul>
-    <h3>Total: ${formatMoney(total + 4.95)}</h3>
+    <h3>Total: ${formatMoney(total + 5.95)}</h3>
     <p>Our team is notificed of your order and will be reaching out shortly to explain the next steps in the order process.  If you have any questions in the meantime, feel free to email us a <a>1worldsmiling@gmail.com</a> and we'll be happy to assist!</p>
     `,
   };

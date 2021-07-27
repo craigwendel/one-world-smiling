@@ -96,7 +96,7 @@ export default function ProductPage({ name, img, basePrice }) {
   const [item, setItem] = useState({
     sizeType: 'Youth',
     size: '',
-    color: 'Yellow',
+    color: 'Heather-Yellow-Gold',
     quantity: 0,
   });
   const [price, setPrice] = useState(basePrice);
@@ -156,8 +156,8 @@ export default function ProductPage({ name, img, basePrice }) {
   };
 
   const youthColors = [
-    { label: 'Yellow', hex: '#f7c340' },
-    { label: 'Heather-Grey', hex: '#b2ada6' },
+    { label: 'Heather-Yellow-Gold', hex: '#f7c340' },
+    { label: 'Athletic-Heather', hex: '#b2ada6' },
     // { label: 'Heather-Red', hex: '#e74253' },
     // { label: 'Heather-Grass', hex: '#4e895f' },
     // { label: 'Heather-Blue', hex: '#558bcc' },
@@ -168,16 +168,16 @@ export default function ProductPage({ name, img, basePrice }) {
     // { label: 'Team-Purple', hex: '#482d64' },
   ];
   const adultColors = [
-    { label: 'Yellow', hex: '#f7c340' },
-    { label: 'Heather-Grey', hex: '#b2ada6' },
-    // { label: 'Sea-Green', hex: '#12c6b3' },
-    // { label: 'Magenta', hex: '#ab5a81' },
-    { label: 'Kelly-Green', hex: '#0fac7a' },
+    { label: 'Heather-Yellow-Gold', hex: '#f7c340' },
+    { label: 'Athletic-Heather', hex: '#b2ada6' },
+    { label: 'Heather-Kelly', hex: '#0fac7a' },
     // { label: 'Cool-Blue', hex: '#6e95ca' },
     // { label: 'Grass-Green', hex: '#4a7760' },
-    { label: 'Aqua', hex: '#45b3cb' },
-    { label: 'Charity-Pink', hex: '#ff8aae' },
-    // { label: 'Autumn', hex: '#c8764d' },
+    { label: 'Heather-Aqua', hex: '#45b3cb' },
+    { label: 'Heather-Charity-Pink', hex: '#ff8aae' },
+    { label: 'Heather-Autumn', hex: '#c8764d' },
+    { label: 'Heather-Magenta', hex: '#ab5a81' },
+    { label: 'Heather-Sea-Green', hex: '#12c6b3' },
   ];
   const colors = item.sizeType === 'Youth' ? youthColors : adultColors;
   const sizeOptions = [
@@ -199,7 +199,12 @@ export default function ProductPage({ name, img, basePrice }) {
 
   const handleChange = (key, value) => {
     if (key === 'sizeType') {
-      setItem({ color: 'Yellow', size: '', quantity: 0, [key]: value });
+      setItem({
+        color: 'Heather-Yellow-Gold',
+        size: '',
+        quantity: 0,
+        [key]: value,
+      });
       updatePrice(value);
     } else {
       setItem({

@@ -38,7 +38,7 @@ const slides = [
     name: 'Our Tee Shirts!',
     button: 'Shop Now!',
     color: '#FAB5B5',
-    img: '/tshirt-Yellow.jpg',
+    img: '/tshirt-Heather-Yellow-Gold.jpg',
     width: 250,
     href: '/product',
   },

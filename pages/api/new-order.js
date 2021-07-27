@@ -45,7 +45,7 @@ export default async function (req, res) {
         } - Size: ${item.size.toUpperCase()}`
     )}
     </ul>
-    <h3>Total: ${formatMoney(total + 4.95)}</h3>
+    <h3>Total: ${formatMoney(total + 5.95)}</h3>
 
     <h3>Shipping details:</h3>
     <p>${firstName} ${lastName}</p>

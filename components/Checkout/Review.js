@@ -64,6 +64,7 @@ export default function Review() {
     acc = parseFloat(cur.price * 0.0825).toFixed(2) * cur.quantity + acc;
     return acc;
   }, 0);
+  const shipping = 5.95;
   const [succeeded, setSucceeded] = useState(false);
   const [paypalErrorMessage, setPaypalErrorMessage] = useState('');
   const [orderID, setOrderID] = useState(false);
@@ -75,7 +76,7 @@ export default function Review() {
           {
             amount: {
               currency_code: 'USD',
-              value: `${(total + tax + 4.95).toFixed(2)}`,
+              value: `${(total + tax + shipping).toFixed(2)}`,
               breakdown: {
                 item_total: {
                   currency_code: 'USD',
@@ -83,7 +84,7 @@ export default function Review() {
                 },
                 shipping: {
                   currency_code: 'USD',
-                  value: '4.95',
+                  value: `${shipping}`,
                 },
                 tax_total: {
                   currency_code: 'USD',
@@ -202,7 +203,7 @@ export default function Review() {
                       primary="Shipping"
                       secondary="Flat Rate Cost"
                     />
-                    <Typography variant="body2">$4.95</Typography>
+                    <Typography variant="body2">{`${shipping}`}</Typography>
                   </ListItem>
                   <Divider />
                 </>
@@ -233,7 +234,7 @@ export default function Review() {
                     variant="h6"
                     className={classes.total}
                   >
-                    {formatMoney(total + tax + 4.95)}
+                    {formatMoney(total + tax + shipping)}
                   </Typography>
                 </ListItem>
               ) : null}
