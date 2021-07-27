@@ -37,12 +37,12 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 10,
   },
   links: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-    },
+    // display: 'none',
+    // [theme.breakpoints.up('sm')]: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    // },
   },
   logoBar: {
     width: '100%',
@@ -106,12 +106,12 @@ export default function AppHeader(props) {
         </div>
         <div className={classes.links}>
           <SocialLinks email />
+          <IconButton className={classes.cart} onClick={openCart}>
+            <Badge badgeContent={cartItems?.length} color="secondary">
+              <ShoppingCartIcon color="primary" />
+            </Badge>
+          </IconButton>
         </div>
-        <IconButton className={classes.cart} onClick={openCart}>
-          <Badge badgeContent={cartItems?.length} color="secondary">
-            <ShoppingCartIcon color="primary" />
-          </Badge>
-        </IconButton>
       </Toolbar>
       <Toolbar style={{ minHeight: 75 }} id="back-to-top-anchor" />
       <ScrollTop {...props}>

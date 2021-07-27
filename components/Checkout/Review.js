@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import SnackbarAlert from '../SnackbarAlert';
 import { formatMoney, useCart } from '../../lib';
@@ -40,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
   total: {
     fontWeight: 700,
   },
+  totalCost: {
+    color: theme.palette.primary.main,
+  },
   title: {
     marginTop: theme.spacing(2),
   },
@@ -56,6 +60,10 @@ export default function Review() {
     acc = cur.quantity * cur.price + acc;
     return acc;
   }, 0);
+  const tax = cartItems.reduce((acc, cur) => {
+    acc = parseFloat(cur.price * 0.0825).toFixed(2) * cur.quantity + acc;
+    return acc;
+  }, 0);
   const [succeeded, setSucceeded] = useState(false);
   const [paypalErrorMessage, setPaypalErrorMessage] = useState('');
   const [orderID, setOrderID] = useState(false);
@@ -67,7 +75,7 @@ export default function Review() {
           {
             amount: {
               currency_code: 'USD',
-              value: `${(total + 4.95).toFixed(2)}`,
+              value: `${(total + tax + 4.95).toFixed(2)}`,
               breakdown: {
                 item_total: {
                   currency_code: 'USD',
@@ -77,15 +85,23 @@ export default function Review() {
                   currency_code: 'USD',
                   value: '4.95',
                 },
+                tax_total: {
+                  currency_code: 'USD',
+                  value: tax?.toFixed(2),
+                },
               },
             },
             items: cartItems.map((item) => ({
               name: `${item?.name} (${
                 item?.color
-              } - ${item?.size?.toUpperCase()}`,
+              } - ${item?.size?.toUpperCase()})`,
               unit_amount: {
                 currency_code: 'USD',
                 value: item?.price,
+              },
+              tax: {
+                currency_code: 'USD',
+                value: (item.price * 0.0825).toFixed(2),
               },
               quantity: item?.quantity?.toString(),
               description: `${item?.color} - ${item?.size?.toUpperCase()}`,
@@ -131,7 +147,10 @@ export default function Review() {
             <Typography variant="subtitle1">
               {`
           Your order number is #${orderID}. You will recieve a
-          confirmation via email and we are working hard on processing your order!  Thanks again and feel free to reach us at `}
+          confirmation in your email.
+          Due to the overwhelming popularity of our shirts, we are experiencing a 2-3 week delay in production. Rest assured, your SMILE will be on its' way as soon as possible!
+
+          Thanks again and feel free to reach us at `}
               <Link href="mailto:1worldsmiling@gmail.com">
                 1worldsmiling@gmail.com
               </Link>
@@ -161,6 +180,23 @@ export default function Review() {
                       </Typography>
                     </ListItem>
                   ))}
+                  <Divider />
+                  <ListItem className={classes.listItem}>
+                    <ListItemText
+                      classes={{ primary: classes.totalCost }}
+                      primary="Items Cost"
+                      secondary="Total Cost of Items"
+                    />
+                    <Typography>{formatMoney(total)}</Typography>
+                  </ListItem>
+                  <Divider />
+                  <ListItem className={classes.listItem}>
+                    <ListItemText
+                      primary="Est. Sales Tax"
+                      // secondary="Flat Rate Cost"
+                    />
+                    <Typography variant="body2">{formatMoney(tax)}</Typography>
+                  </ListItem>
                   <ListItem className={classes.listItem}>
                     <ListItemText
                       primary="Shipping"
@@ -168,6 +204,7 @@ export default function Review() {
                     />
                     <Typography variant="body2">$4.95</Typography>
                   </ListItem>
+                  <Divider />
                 </>
               ) : (
                 <ListItem>
@@ -187,9 +224,16 @@ export default function Review() {
               )}
               {total > 0 ? (
                 <ListItem className={classes.listItem}>
-                  <ListItemText primary="Total" />
-                  <Typography variant="subtitle1" className={classes.total}>
-                    {formatMoney(total + 4.95)}
+                  <ListItemText
+                    classes={{ primary: classes.totalCost }}
+                    primary="Total Cost"
+                  />
+                  <Typography
+                    color="primary"
+                    variant="h6"
+                    className={classes.total}
+                  >
+                    {formatMoney(total + tax + 4.95)}
                   </Typography>
                 </ListItem>
               ) : null}

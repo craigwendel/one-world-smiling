@@ -38,18 +38,18 @@ const slides = [
     name: 'Our Tee Shirts!',
     button: 'Shop Now!',
     color: '#FAB5B5',
-    img: '/tshirt-Neon-Blue-nb.png',
+    img: '/tshirt-Yellow.jpg',
     width: 250,
     href: '/product',
   },
   {
     id: 2,
-    name: '#Sm1le',
-    button: 'Learn More',
+    name: 'Cool Youth Colors!',
+    button: 'Shop Now!',
     color: '#ffe500b3',
-    img: '/smile-world-color.png',
+    img: '/tshirt-Neon-Blue-nb.png',
     width: 300,
-    href: '/my-message',
+    href: '/product',
   },
 ];
 

@@ -156,26 +156,28 @@ export default function ProductPage({ name, img, basePrice }) {
   };
 
   const youthColors = [
-    { label: 'Yellow', hex: '#dec86d' },
-    { label: 'Heather-Red', hex: '#e74253' },
-    { label: 'Heather-Grass', hex: '#4e895f' },
-    { label: 'Heather-Blue', hex: '#558bcc' },
-    { label: 'Neon-Orange', hex: '#fe7e08' },
+    { label: 'Yellow', hex: '#f7c340' },
+    { label: 'Heather-Grey', hex: '#b2ada6' },
+    // { label: 'Heather-Red', hex: '#e74253' },
+    // { label: 'Heather-Grass', hex: '#4e895f' },
+    // { label: 'Heather-Blue', hex: '#558bcc' },
+    // { label: 'Neon-Orange', hex: '#fe7e08' },
     { label: 'Neon-Green', hex: '#6ad45e' },
     { label: 'Neon-Blue', hex: '#0388b2' },
     { label: 'Neon-Pink', hex: '#fd82a3' },
-    { label: 'Team-Purple', hex: '#482d64' },
+    // { label: 'Team-Purple', hex: '#482d64' },
   ];
   const adultColors = [
-    { label: 'Yellow', hex: '#dec86d' },
-    { label: 'Sea-Green', hex: '#12c6b3' },
-    { label: 'Magenta', hex: '#ab5a81' },
+    { label: 'Yellow', hex: '#f7c340' },
+    { label: 'Heather-Grey', hex: '#b2ada6' },
+    // { label: 'Sea-Green', hex: '#12c6b3' },
+    // { label: 'Magenta', hex: '#ab5a81' },
     { label: 'Kelly-Green', hex: '#0fac7a' },
-    { label: 'Cool-Blue', hex: '#6e95ca' },
-    { label: 'Grass-Green', hex: '#4a7760' },
-    { label: 'Charity-Pink', hex: '#ff8aae' },
-    { label: 'Autumn', hex: '#c8764d' },
+    // { label: 'Cool-Blue', hex: '#6e95ca' },
+    // { label: 'Grass-Green', hex: '#4a7760' },
     { label: 'Aqua', hex: '#45b3cb' },
+    { label: 'Charity-Pink', hex: '#ff8aae' },
+    // { label: 'Autumn', hex: '#c8764d' },
   ];
   const colors = item.sizeType === 'Youth' ? youthColors : adultColors;
   const sizeOptions = [

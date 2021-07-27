@@ -51,6 +51,10 @@ export default function Cart() {
   const classes = useStyles();
   const router = useRouter();
   const { cartOpen, cartItems, closeCart, removeCartItem } = useCart();
+  const total = cartItems?.reduce((acc, cur) => {
+    acc = cur?.quantity * cur?.price + acc;
+    return acc;
+  }, 0);
   const Primary = ({ name, color, size }) => {
     return (
       <div>
@@ -72,7 +76,9 @@ export default function Cart() {
           component="h6"
           variant="h6"
           color="primary"
-        >{`Total: ${formatMoney(parseFloat(quantity * price))}`}</Typography>
+        >{`Item Total: ${formatMoney(
+          parseFloat(quantity * price)
+        )}`}</Typography>
       </>
     );
   };
@@ -124,6 +130,15 @@ export default function Cart() {
           </ListItem>
         )}
       </List>
+      <Divider className={classes.divider} />
+      <Typography
+        style={{ padding: '1rem 0rem' }}
+        component="h5"
+        variant="h5"
+        color="primary"
+      >
+        {`Total: ${formatMoney(total)}`}
+      </Typography>
       <Divider className={classes.divider} />
       <Button
         onClick={() => {

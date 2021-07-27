@@ -20,7 +20,7 @@ export default function SocialLinks({ youTube, email, color }) {
   const router = useRouter();
   return (
     <div className={classes.root}>
-      <IconButton>
+      {/* <IconButton>
         <Link style={{ color: color }} href="" target="_blank">
           <FacebookIcon />
         </Link>
@@ -29,7 +29,7 @@ export default function SocialLinks({ youTube, email, color }) {
         <Link style={{ color: color }} href="" target="_blank">
           <InstagramIcon />
         </Link>
-      </IconButton>
+      </IconButton> */}
       {/* <IconButton>
         <Link href="https://twitter.com/HomeStateBrew" target="_blank">
           <TwitterIcon
