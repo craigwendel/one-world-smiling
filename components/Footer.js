@@ -10,7 +10,7 @@ import SocialLinks from './SocialLinks';
 const useStyles = makeStyles((theme) => ({
   footer: {
     display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
+    gridTemplateColumns: '1fr',
     gridGap: '1rem',
     alignItems: 'center',
     padding: '1vmax 3vw',
@@ -73,8 +73,8 @@ export default function Footer() {
 
   return (
     <div className={classes.footer}>
-      <div className={classes.signup}>
-        <Typography className={classes.text} variant="h6">
+      {/* <div className={classes.signup}> */}
+      {/* <Typography className={classes.text} variant="h6">
           Sign up to learn more!
         </Typography>
         <TextField
@@ -97,8 +97,8 @@ export default function Footer() {
             ),
           }}
           variant="outlined"
-        />
-      </div>
+        /> */}
+      {/* </div> */}
       <div className={classes.content}>
         <div className={classes.image}>
           <Typography variant="h5">1 World Smiling</Typography>
