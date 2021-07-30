@@ -1,5 +1,5 @@
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
-import Review from '../components/Checkout/Review';
+import Review from '../components/Review';
 
 export default function CheckoutPage() {
   const initialOptions = {

@@ -21,13 +21,13 @@ export default function Interview() {
   return (
     <div className={classes.root}>
       <Typography className={classes.type} variant="h3" color="primary">
-        News 4 SA Interview
+        TV Interview
       </Typography>
       <video
         className={classes.video}
         controls
         src="/sa-news-interview.mp4"
-        alt="interview with jaylen on sa news 4"
+        alt="tv interview with jaylen on sa news 4"
       />
     </div>
   );

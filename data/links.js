@@ -1,10 +1,10 @@
 export const links = [
   {
-    name: 'Shop Now!',
-    path: '/product',
+    name: `Jaylen's Message`,
+    path: '/my-message',
   },
   {
-    name: 'News Interview',
+    name: 'TV Interview',
     path: '/interview',
   },
   {
@@ -12,8 +12,8 @@ export const links = [
     path: '/giving-back',
   },
   {
-    name: `Jaylen's Message`,
-    path: '/my-message',
+    name: 'Shop Now!',
+    path: '/product',
   },
   {
     name: 'Contact Us',
