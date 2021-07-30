@@ -4,6 +4,14 @@ export const links = [
     path: '/product',
   },
   {
+    name: 'News Interview',
+    path: '/interview',
+  },
+  {
+    name: 'Giving Back',
+    path: '/giving-back',
+  },
+  {
     name: `Jaylen's Message`,
     path: '/my-message',
   },

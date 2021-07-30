@@ -20,12 +20,16 @@ export default function SocialLinks({ youTube, email, color }) {
   const router = useRouter();
   return (
     <div className={classes.root}>
-      {/* <IconButton>
-        <Link style={{ color: color }} href="" target="_blank">
+      <IconButton>
+        <Link
+          style={{ color: color }}
+          href="https://www.facebook.com/profile.php?id=100071244248853"
+          target="_blank"
+        >
           <FacebookIcon />
         </Link>
       </IconButton>
-      <IconButton>
+      {/* <IconButton>
         <Link style={{ color: color }} href="" target="_blank">
           <InstagramIcon />
         </Link>

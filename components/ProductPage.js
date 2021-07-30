@@ -12,6 +12,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import CheckIcon from '@material-ui/icons/CheckCircle';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import GivingBack from './GivingBack';
 import { useCart } from '../lib';
 
 const useStyles = makeStyles((theme) => ({
@@ -155,6 +156,35 @@ export default function ProductPage({ name, img, basePrice }) {
     );
   };
 
+  const ColorCircle = ({ label, hex, handleChange }) => {
+    return (
+      <>
+        <Tooltip title={label} placement="top">
+          <Badge
+            classes={{ anchorOriginTopRightCircular: classes.badge }}
+            invisible={item.color !== label}
+            overlap="circular"
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            badgeContent={<CheckIcon fontSize="small" color="primary" />}
+          >
+            <Avatar
+              className={`${classes.color} ${
+                item.color === label ? classes.colorSelected : ''
+              }`}
+              style={{ background: hex }}
+              onClick={() => handleChange('color', label)}
+            >
+              {' '}
+            </Avatar>
+          </Badge>
+        </Tooltip>
+      </>
+    );
+  };
+
   const youthColors = [
     { label: 'Heather-Yellow-Gold', hex: '#f7c340' },
     { label: 'Athletic-Heather', hex: '#b2ada6' },
@@ -169,7 +199,6 @@ export default function ProductPage({ name, img, basePrice }) {
   ];
   const adultColors = [
     { label: 'Heather-Yellow-Gold', hex: '#f7c340' },
-    { label: 'Athletic-Heather', hex: '#b2ada6' },
     { label: 'Heather-Kelly', hex: '#0fac7a' },
     // { label: 'Cool-Blue', hex: '#6e95ca' },
     // { label: 'Grass-Green', hex: '#4a7760' },
@@ -218,7 +247,6 @@ export default function ProductPage({ name, img, basePrice }) {
     const newItem = { ...item, id: cartItems?.length + 1, name, img, price };
     addCartItem(newItem);
     setItem({ ...item, size: '', quantity: 0 });
-    setPrice(basePrice);
     openCart();
   };
 
@@ -255,30 +283,25 @@ export default function ProductPage({ name, img, basePrice }) {
         <div className={classes.flexRow}>
           <Typography>Color</Typography>
           {colors.map((c) => (
-            <Tooltip key={c.label} title={c.label} placement="top">
-              <Badge
-                classes={{ anchorOriginTopRightCircular: classes.badge }}
-                invisible={item.color !== c.label}
-                overlap="circular"
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                badgeContent={<CheckIcon fontSize="small" color="primary" />}
-              >
-                <Avatar
-                  className={`${classes.color} ${
-                    item.color === c.label ? classes.colorSelected : ''
-                  }`}
-                  style={{ background: c.hex }}
-                  onClick={() => handleChange('color', c.label)}
-                >
-                  {' '}
-                </Avatar>
-              </Badge>
-            </Tooltip>
+            <ColorCircle
+              key={c.label}
+              label={c.label}
+              hex={c.hex}
+              handleChange={handleChange}
+            />
           ))}
         </div>
+        {item.sizeType === 'Adult' ? (
+          <div className={classes.flexRow}>
+            <Typography>Alt Design</Typography>
+            <ColorCircle
+              key={'Athletic-Heather-'}
+              label={'Athletic-Heather-'}
+              hex={'#b2ada6'}
+              handleChange={handleChange}
+            />{' '}
+          </div>
+        ) : null}
         <div className={classes.flexRow}>
           <Typography>{item.sizeType}</Typography>
           {sizes.map((s) => (
@@ -325,6 +348,7 @@ export default function ProductPage({ name, img, basePrice }) {
         >
           Add to Cart
         </Button>
+        <GivingBack variant="h6" />
       </div>
     </div>
   );
