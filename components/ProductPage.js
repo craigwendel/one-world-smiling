@@ -205,7 +205,7 @@ export default function ProductPage({ name, img, basePrice }) {
     { label: 'Heather-Aqua', hex: '#45b3cb' },
     { label: 'Heather-Charity-Pink', hex: '#ff8aae' },
     { label: 'Heather-Autumn', hex: '#c8764d' },
-    { label: 'Heather-Magenta', hex: '#ab5a81' },
+    // { label: 'Heather-Magenta', hex: '#ab5a81' },
     { label: 'Heather-Sea-Green', hex: '#12c6b3' },
   ];
   const colors = item.sizeType === 'Youth' ? youthColors : adultColors;

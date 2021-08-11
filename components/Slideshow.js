@@ -38,7 +38,7 @@ const slides = [
     name: 'Our Tee Shirts!',
     button: 'Shop Now!',
     color: '#FAB5B5',
-    img: '/hero-slideshow.png',
+    img: '/tshirt-slide-1.png',
     width: 250,
     href: '/product',
   },
@@ -47,9 +47,18 @@ const slides = [
     name: 'Cool Youth Colors!',
     button: 'Shop Now!',
     color: '#ffe500b3',
-    img: '/tshirt-Neon-Blue-nb.png',
+    img: '/gallery-1.png',
     width: 300,
     href: '/product',
+  },
+  {
+    id: 3,
+    name: `We're all smiling!`,
+    button: 'View Gallery!',
+    color: '#12c6b3',
+    img: '/gallery-2.png',
+    width: 300,
+    href: '/gallery',
   },
 ];
 
