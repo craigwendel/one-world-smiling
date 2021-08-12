@@ -39,7 +39,7 @@ const slides = [
     button: 'Shop Now!',
     color: '#FAB5B5',
     img: '/tshirt-slide-1.png',
-    width: 250,
+    width: 200,
     href: '/product',
   },
   {
@@ -57,7 +57,7 @@ const slides = [
     button: 'View Gallery!',
     color: '#12c6b3',
     img: '/gallery-2.png',
-    width: 300,
+    width: 250,
     href: '/gallery',
   },
 ];
@@ -71,7 +71,7 @@ function Slide({ name, button, color, img, width, href }) {
         <Image
           src={img}
           width={width}
-          height={300}
+          height={350}
           layout="intrinsic"
           alt={name}
         />
