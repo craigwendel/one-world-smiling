@@ -60,6 +60,15 @@ const slides = [
     width: 250,
     href: '/gallery',
   },
+  {
+    id: 3,
+    name: `Our shirts in action!`,
+    button: 'View Gallery!',
+    color: '#45b3cb',
+    img: '/gallery-3.png',
+    width: 350,
+    href: '/gallery',
+  },
 ];
 
 function Slide({ name, button, color, img, width, href }) {

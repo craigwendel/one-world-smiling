@@ -12,6 +12,10 @@ export const links = [
     path: '/giving-back',
   },
   {
+    name: 'Our Gallery',
+    path: '/gallery',
+  },
+  {
     name: 'Shop Now!',
     path: '/product',
   },

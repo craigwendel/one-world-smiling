@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'grid',
     gridTemplateColumns: '1fr',
     justifyItems: 'center',
+    marginBottom: '1.5rem',
   },
   type: {
     marginBottom: '1rem',
