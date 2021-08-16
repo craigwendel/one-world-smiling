@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    paddingBottom: '2rem',
     [theme.breakpoints.down('xs')]: {
       flexDirection: 'column',
     },
@@ -34,8 +33,17 @@ const useStyles = makeStyles((theme) => ({
 
 const slides = [
   {
-    id: 1,
+    id: 0,
     name: 'Our Tee Shirts!',
+    button: 'Shop Now!',
+    color: '#45b3cb',
+    img: '/donjay.png',
+    width: 250,
+    href: '/product',
+  },
+  {
+    id: 1,
+    name: 'Youth Sizes!',
     button: 'Shop Now!',
     color: '#FAB5B5',
     img: '/tshirt-slide-1.png',
@@ -44,7 +52,7 @@ const slides = [
   },
   {
     id: 2,
-    name: 'Cool Youth Colors!',
+    name: 'Tons of Colors!',
     button: 'Shop Now!',
     color: '#ffe500b3',
     img: '/gallery-1.png',
@@ -64,7 +72,7 @@ const slides = [
     id: 3,
     name: `Our shirts in action!`,
     button: 'View Gallery!',
-    color: '#45b3cb',
+    color: '#6ad45e',
     img: '/gallery-3.png',
     width: 350,
     href: '/gallery',
