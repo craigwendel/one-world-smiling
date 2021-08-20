@@ -29,11 +29,15 @@ export default function SocialLinks({ youTube, email, color }) {
           <FacebookIcon />
         </Link>
       </IconButton>
-      {/* <IconButton>
-        <Link style={{ color: color }} href="" target="_blank">
+      <IconButton>
+        <Link
+          style={{ color: color }}
+          href="https://www.instagram.com/1worldsmiling/"
+          target="_blank"
+        >
           <InstagramIcon />
         </Link>
-      </IconButton> */}
+      </IconButton>
       {/* <IconButton>
         <Link href="https://twitter.com/HomeStateBrew" target="_blank">
           <TwitterIcon
