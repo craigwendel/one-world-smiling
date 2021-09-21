@@ -81,7 +81,7 @@ const slides = [
   {
     id: 4,
     name: '1 World Family!',
-    button: '!',
+    button: 'View Gallery!',
     color: '#45b3cb',
     img: '/gallery-5.png',
     width: 300,

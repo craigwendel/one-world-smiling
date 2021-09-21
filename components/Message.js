@@ -17,9 +17,13 @@ const useStyles = makeStyles((theme) => ({
   type: {
     marginBottom: '1rem',
   },
-  image: {
+  textImage: {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
+  },
+  image: {
+    display: 'flex',
     alignItems: 'center',
   },
 }));
@@ -28,18 +32,26 @@ export default function Message() {
   const classes = useStyles();
   return (
     <div className={classes.message}>
-      <div className={classes.image}>
+      <div className={classes.textImage}>
         <Typography
           className={classes.type}
           color="primary"
           variant="h3"
         >{`Jaylen's Message`}</Typography>
-        <Image
-          src="/jaylens-message.png"
-          width={400}
-          height={450}
-          alt="hands holding a hand written note"
-        />
+        <div className={classes.image}>
+          <Image
+            src="/jaylen.png"
+            width={350}
+            height={450}
+            alt="hands holding a hand written note"
+          />
+          <Image
+            src="/jaylens-message.png"
+            width={400}
+            height={450}
+            alt="hands holding a hand written note"
+          />
+        </div>
       </div>
       {/* <Typography variant="h3" color="primary" align="center">
         My Message
