@@ -40,7 +40,7 @@ export default function Message() {
         Our Gallery!
       </Typography>
       <div className={classes.images}>
-        {[0, 1, 2, 3, 4, 5].map((e) => (
+        {[0, 1, 2, 3, 4, 5, 6].map((e) => (
           <div key={e} className={classes.image}>
             <Image
               src={`/gallery-${e}.png`}

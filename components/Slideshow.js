@@ -87,6 +87,15 @@ const slides = [
     width: 300,
     href: '/gallery',
   },
+  {
+    id: 5,
+    name: 'Shirts for everyone!',
+    button: 'Shop Now!',
+    color: '#45b3cb',
+    img: '/gallery-6.png',
+    width: 300,
+    href: '/product',
+  },
 ];
 
 function Slide({ name, button, color, img, width, href }) {
