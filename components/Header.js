@@ -14,6 +14,7 @@ import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import SocialLinks from './SocialLinks';
 import MobileMenu from './MobileMenu';
 import { useCart } from '../lib';
+import { links } from '../data/links';
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -39,6 +40,30 @@ const useStyles = makeStyles((theme) => ({
   links: {
     display: 'flex',
     alignItems: 'center',
+  },
+  about: {
+    position: 'relative',
+    display: 'inline-block',
+    margin: '0.5rem',
+    fontSize: '1rem',
+    '&:hover $dropdown': {
+      display: 'flex',
+    },
+  },
+  dropdown: {
+    display: 'none',
+    position: 'absolute',
+    flexDirection: 'column',
+    backgroundColor: '#fff',
+    width: 140,
+    paddingTop: '0.4rem',
+  },
+  link: {
+    padding: '0.3rem 1rem',
+    '&:hover': {
+      cursor: 'pointer',
+      textDecoration: 'underline',
+    },
   },
   social: {
     display: 'none',
@@ -110,6 +135,32 @@ export default function AppHeader(props) {
         </div>
         <div className={classes.links}>
           <div className={classes.social}>
+            <Typography
+              className={classes.link}
+              color="primary"
+              onClick={() => router.push('/product')}
+            >
+              Shop Now!
+            </Typography>
+            <div className={classes.about}>
+              <Typography color="primary" style={{ padding: '0.3rem 1rem' }}>
+                About Us
+              </Typography>
+              <div className={classes.dropdown}>
+                {links
+                  ?.filter((l) => !['Shop Now!', 'Contact Us'].includes(l.name))
+                  ?.map((link) => (
+                    <Typography
+                      key={link.name}
+                      className={classes.link}
+                      color="primary"
+                      onClick={() => router.push(link.path)}
+                    >
+                      {link.name}
+                    </Typography>
+                  ))}
+              </div>
+            </div>
             <SocialLinks email />
           </div>
           <IconButton className={classes.cart} onClick={openCart}>
