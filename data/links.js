@@ -16,8 +16,12 @@ export const links = [
     path: '/gallery',
   },
   {
-    name: 'Shop Now!',
+    name: 'Shop T-Shirts!',
     path: '/product',
+  },
+  {
+    name: 'Shop Caps!',
+    path: '/caps',
   },
   {
     name: 'Contact Us',

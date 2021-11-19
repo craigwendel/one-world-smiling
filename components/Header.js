@@ -135,20 +135,39 @@ export default function AppHeader(props) {
         </div>
         <div className={classes.links}>
           <div className={classes.social}>
-            <Typography
-              className={classes.link}
-              color="primary"
-              onClick={() => router.push('/product')}
-            >
-              Shop Now!
-            </Typography>
+            <div className={classes.about}>
+              <Typography color="primary" style={{ padding: '0.3rem 1rem' }}>
+                Shop
+              </Typography>
+              <div className={classes.dropdown}>
+                {links
+                  ?.filter((l) =>
+                    ['Shop T-Shirts!', 'Shop Caps!'].includes(l.name)
+                  )
+                  ?.map((link) => (
+                    <Typography
+                      key={link.name}
+                      className={classes.link}
+                      color="primary"
+                      onClick={() => router.push(link.path)}
+                    >
+                      {link.name}
+                    </Typography>
+                  ))}
+              </div>
+            </div>
             <div className={classes.about}>
               <Typography color="primary" style={{ padding: '0.3rem 1rem' }}>
                 About Us
               </Typography>
               <div className={classes.dropdown}>
                 {links
-                  ?.filter((l) => !['Shop Now!', 'Contact Us'].includes(l.name))
+                  ?.filter(
+                    (l) =>
+                      !['Shop T-Shirts!', 'Shop Caps!', 'Contact Us'].includes(
+                        l.name
+                      )
+                  )
                   ?.map((link) => (
                     <Typography
                       key={link.name}

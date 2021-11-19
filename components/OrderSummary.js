@@ -52,15 +52,12 @@ export default function OrderSummary({ cartItems, total, tax, shipping }) {
           </ListItem>
           <Divider />
           <ListItem className={classes.listItem}>
-            <ListItemText
-              primary="Est. Sales Tax"
-              // secondary="Flat Rate Cost"
-            />
+            <ListItemText primary="Est. Sales Tax" />
             <Typography variant="body2">{formatMoney(tax)}</Typography>
           </ListItem>
           <ListItem className={classes.listItem}>
             <ListItemText primary="Shipping" secondary="Flat Rate Cost" />
-            <Typography variant="body2">{`${shipping}`}</Typography>
+            <Typography variant="body2">{`$${shipping}`}</Typography>
           </ListItem>
           <Divider />
         </>
