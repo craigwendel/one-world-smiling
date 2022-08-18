@@ -141,9 +141,7 @@ export default function AppHeader(props) {
               </Typography>
               <div className={classes.dropdown}>
                 {links
-                  ?.filter((l) =>
-                    ['Shop T-Shirts!', 'Shop Caps!'].includes(l.name)
-                  )
+                  ?.filter((l) => ['Shop T-Shirts!'].includes(l.name))
                   ?.map((link) => (
                     <Typography
                       key={link.name}
