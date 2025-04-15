@@ -167,7 +167,7 @@ export default function Review() {
             Payment
           </Typography>
           <PayPalButtons
-            disabled={total <= 0}
+            disabled
             style={{ color: 'blue', shape: 'pill', label: 'pay', height: 40 }}
             createOrder={createOrder}
             onApprove={onApprove}
