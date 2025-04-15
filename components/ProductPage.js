@@ -339,15 +339,15 @@ export default function ProductPage({ name, img, basePrice }) {
             <AddCircleIcon />
           </IconButton>
         </div>
-        <Button
-          className={classes.button}
-          disabled={item.color && item.size && item.quantity > 0 ? false : true}
-          onClick={handleAddItem}
-          color="primary"
-          variant="contained"
-        >
-          Add to Cart
-        </Button>
+        // <Button
+        //   className={classes.button}
+        //   disabled={item.color && item.size && item.quantity > 0 ? false : true}
+        //   onClick={handleAddItem}
+        //   color="primary"
+        //   variant="contained"
+        // >
+        //   Add to Cart
+        // </Button>
         <GivingBack variant="h6" />
       </div>
     </div>
